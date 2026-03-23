@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>태양광 센서 모니터링 관리자 페이지</title>
+
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/manage.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./js/toggle_btn.js" defer></script>
+    <script src="./js/date.js" defer></script>
+    <script src="./js/manage.js" defer></script>
+
+    <!-- chart.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="./js/chart.js" defer></script>
+</head>
+
+<body>
+    <div class="wrap">
+        <header>
+            <div class="title">
+                <h3>태양광 단지센서 모니터링 시스템</h3>
+                <span>Sensor Monitoring System</span>
+            </div>
+
+            <div class="today_state">
+                <div class="tem">
+                    <img src="./image/icon/temperature.svg" alt="tem">
+                    <span>온도 : 18°C</span>
+                </div>
+
+                <div class="rain">
+                    <img src="./image/icon/rain.svg" alt="rain">
+                    <span>강수량 : 18mm</span>
+                </div>
+
+                <div class="hum">
+                    <img src="./image/icon/humidity.svg" alt="hum">
+                    <span>습도 : 18%</span>
+                </div>
+
+                <div class="wind">
+                    <img src="./image/icon/Wind.svg" alt="wind">
+                    <span>풍속 : 2.7m/s</span>
+                </div>
+            </div>
+
+            <div class="sestting">
+                <!-- <div>
+                    <img src="./image/header_icon/setting.svg" alt="setting_icon">
+                </div> -->
+                <div class="bell">
+                    <img src="./image/header_icon/bell.svg" alt="bell_icon">
+                    <span>3</span>
+                </div>
+                <div class="log">
+                    <img src="./image/header_icon/person-circle.svg" alt="person_icon">
+                </div>
+            </div>
+        </header>
+
+        <!-- 희원 1212 -->
+        <div class="logout">
+            <button>로그아웃</button>
+        </div>
+
+        <div class="alarm_list">
+            <ul>
+                <li>알람 1</li>
+                <li>알람 2</li>
+                <li>알람 3</li>
+            </ul>
+        </div>
+        <!-- ----------------- -->
+
+        <!-- 희원 1223 -->
+        <div class="content_wrap">
+            <!-- 희원 1223 -->
+            <div class="nav">
+                <div class="side_menu">
+                    <div>
+                        <div class="data_icon menu_active" id="Data">
+                            <img src="./image/icon/dashboard_bk.svg" alt="data_control_icon">
+                            <span>데이터 검색</span>
+                        </div>
+                        <div class="person_icon" id="Person">
+                            <img src="./image/icon/person_edit_bk.svg" alt="person_con_icon">
+                            <span>사용자 관리</span>
+                        </div>
+                    </div>
+
+                    <div style="border-top: 1px solid #ddd; padding-top: 20px;">
+                        <div class="setting_icon">
+                            <img src="./image/header_icon/setting.svg" alt="setting_icon">
+                            <span>설정</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="contain data_wrap">
+                <div class="toggle_container">
+                    <div class="toggle_slider"></div>
+                    <button class="toggle_btn active" data-value="표">표</button>
+                    <button class="toggle_btn" data-value="차트">차트</button>
+                </div>
+
+                <!-- 희원 1209 -->
+                <div class="main_content table">
+                    <div class="select">
+                        <!-- 희원 1215 -->
+                        <div style="position: relative;">
+                            <select name="time" id="time">
+                                <option value="min">분</option>
+                                <option value="day">일</option>
+                            </select>
+
+                            <!-- 희원 1211 -->
+                            <div class="date">
+                                <span>기간</span>
+                                <!-- 희원 1215 -->
+                                <div class="date_input">
+                                    <div class="date_input_wrap">
+                                        <div class="input_date start_date" id="startDateField">
+                                            <span>시작</span>
+                                            <span class="date_value" id="startDateDisplay">2025-12-25 00:00</span>
+                                        </div>
+                                    </div>
+                                    <span>~</span>
+                                    <div class="date_input_wrap">
+                                        <div class="input_date end_date" id="endDateField">
+                                            <span>종료</span>
+                                            <span class="date_value" id="endDateDisplay">2025-12-25 00:00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ===== 시작 날짜 팝업 ===== -->
+                            <div class="popup_content start_cal" id="startPopup">
+                                <div class="calendar">
+                                    <p>시작 날짜</p>
+                                    <div class="calendar_header">
+                                        <img src="./image/icon/left.svg" alt="left_icon" class="calendar_btn">
+                                        <span class="calendar_title" id="startMonthYear">2025년 12월</span>
+                                        <img src="./image/icon/right.svg" alt="right_icon" class="calendar_btn">
+                                    </div>
+
+                                    <!-- 연/월 선택 패널 -->
+                                    <div class="ym_picker" id="startYmPicker"></div>
+
+                                    <div class="weekdays">
+                                        <div class="weekday">일</div>
+                                        <div class="weekday">월</div>
+                                        <div class="weekday">화</div>
+                                        <div class="weekday">수</div>
+                                        <div class="weekday">목</div>
+                                        <div class="weekday">금</div>
+                                        <div class="weekday">토</div>
+                                    </div>
+                                    <div class="days" id="startDays"></div>
+                                </div>
+
+                                <div class="time_picker">
+                                    <div class="time_column">
+                                        <span class="time_label">시</span>
+                                        <div class="scroll" id="startHourScroll"></div>
+                                    </div>
+
+                                    <span class="time_separator">:</span>
+
+                                    <div class="time_column">
+                                        <span class="time_label">분</span>
+                                        <div class="scroll" id="startMinuteScroll"></div>
+                                    </div>
+                                </div>
+
+                                <div class="popup_buttons">
+                                    <button class="btn  cancle_btn">취소</button>
+                                    <button class="btn  confirm_btn">확인</button>
+                                </div>
+                            </div>
+
+                            <!-- ===== 끝 날짜 팝업 ===== -->
+                            <div class="popup_content end_cal" id="endPopup">
+                                <div class="calendar">
+                                    <p>종료 날짜</p>
+                                    <div class="calendar_header">
+                                        <img src="./image/icon/left.svg" alt="left_icon" class="calendar_btn">
+                                        <span class="calendar_title" id="endMonthYear">2025년
+                                            12월</span>
+                                        <img src="./image/icon/right.svg" alt="right_icon" class="calendar_btn">
+                                    </div>
+
+                                    <!-- 연/월 선택 패널 -->
+                                    <div class="ym_picker" id="endYmPicker"></div>
+
+                                    <div class="weekdays">
+                                        <div class="weekday">일</div>
+                                        <div class="weekday">월</div>
+                                        <div class="weekday">화</div>
+                                        <div class="weekday">수</div>
+                                        <div class="weekday">목</div>
+                                        <div class="weekday">금</div>
+                                        <div class="weekday">토</div>
+                                    </div>
+                                    <div class="days" id="endDays"></div>
+                                </div>
+
+                                <div class="time_picker">
+                                    <div class="time_column">
+                                        <span class="time_label">시</span>
+                                        <div class="scroll" id="endHourScroll"></div>
+                                    </div>
+
+                                    <span class="time_separator">:</span>
+
+                                    <div class="time_column">
+                                        <span class="time_label">분</span>
+                                        <div class="scroll" id="endMinuteScroll"></div>
+                                    </div>
+                                </div>
+
+                                <div class="popup_buttons">
+                                    <button class="btn  cancle_btn">취소</button>
+                                    <button class="btn  confirm_btn">확인</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="button_row">
+                            <button>검색</button>
+                            <button>Export</button>
+                        </div>
+                    </div>
+
+                    <div class="content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>일사 (1구역)</th>
+                                    <th>일사 (2구역)</th>
+                                    <th>일사 (3구역)</th>
+                                    <th>일사 (4구역)</th>
+                                    <th>일사 (5구역)</th>
+                                    <th>풍향</th>
+                                    <th>풍속</th>
+                                    <th>온도</th>
+                                    <th>습도</th>
+                                    <th>1분당 강수량</th>
+                                    <th>시간당 강수량</th>
+                                    <th>적설량</th>
+                                </tr>
+                            </thead>
+
+                            <!-- 희원 1209 -->
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div>Date</div>
+                                        25/08/26 <span>11:00</span>
+                                    </td>
+                                    <td>
+                                        <div>일사 (1구역)</div>
+                                        819.6W/m²
+                                    </td>
+                                    <td>
+                                        <div>일사 (2구역)</div>
+                                        819.6W/m²
+                                    </td>
+                                    <td>
+                                        <div>일사 (3구역)</div>
+                                        819.6W/m²
+                                    </td>
+                                    <td>
+                                        <div>일사 (4구역)</div>
+                                        819.6W/m²
+                                    </td>
+                                    <td>
+                                        <div>일사 (5구역)</div>
+                                        819.6W/m²
+                                    </td>
+                                    <td>
+                                        <div>풍향</div>
+                                        76°
+                                    </td>
+                                    <td>
+                                        <div>풍속</div>
+                                        15.3m/s
+                                    </td>
+                                    <td>
+                                        <div>온도</div>
+                                        58.5°C
+                                    </td>
+                                    <td>
+                                        <div>습도</div>
+                                        50%
+                                    </td>
+                                    <td>
+                                        <div>1분당 강수량</div>
+                                        15.3mm
+                                    </td>
+                                    <td>
+                                        <div>시간당 강수량</div>
+                                        1.8mm
+                                    </td>
+                                    <td>
+                                        <div>적설량</div>
+                                        15.3cm
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>Date</div>
+                                        25/08/26 <span>11:00</span>
+                                    </td>
+                                    <td>
+                                        <div>일사 (1구역)</div>
+                                        819.6W/m²
+                                    </td>
+                                    <td>
+                                        <div>일사 (2구역)</div>
+                                        819.6W/m²
+                                    </td>
+                                    <td>
+                                        <div>일사 (3구역)</div>
+                                        819.6W/m²
+                                    </td>
+                                    <td>
+                                        <div>일사 (4구역)</div>
+                                        819.6W/m²
+                                    </td>
+                                    <td>
+                                        <div>일사 (5구역)</div>
+                                        819.6W/m²
+                                    </td>
+                                    <td>
+                                        <div>풍향</div>
+                                        76°
+                                    </td>
+                                    <td>
+                                        <div>풍속</div>
+                                        15.3m/s
+                                    </td>
+                                    <td>
+                                        <div>온도</div>
+                                        58.5°C
+                                    </td>
+                                    <td>
+                                        <div>습도</div>
+                                        50%
+                                    </td>
+                                    <td>
+                                        <div>1분당 강수량</div>
+                                        15.3mm
+                                    </td>
+                                    <td>
+                                        <div>시간당 강수량</div>
+                                        1.8mm
+                                    </td>
+                                    <td>
+                                        <div>적설량</div>
+                                        15.3cm
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>Date</div>
+                                        25/08/26 <span>11:00</span>
+                                    </td>
+                                    <td>
+                                        <div>일사 (1구역)</div>
+                                        819.6W/m²
+                                    </td>
+                                    <td>
+                                        <div>일사 (2구역)</div>
+                                        819.6W/m²
+                                    </td>
+                                    <td>
+                                        <div>일사 (3구역)</div>
+                                        819.6W/m²
+                                    </td>
+                                    <td>
+                                        <div>일사 (4구역)</div>
+                                        819.6W/m²
+                                    </td>
+                                    <td>
+                                        <div>일사 (5구역)</div>
+                                        819.6W/m²
+                                    </td>
+                                    <td>
+                                        <div>풍향</div>
+                                        76°
+                                    </td>
+                                    <td>
+                                        <div>풍속</div>
+                                        15.3m/s
+                                    </td>
+                                    <td>
+                                        <div>온도</div>
+                                        58.5°C
+                                    </td>
+                                    <td>
+                                        <div>습도</div>
+                                        50%
+                                    </td>
+                                    <td>
+                                        <div>1분당 강수량</div>
+                                        15.3mm
+                                    </td>
+                                    <td>
+                                        <div>시간당 강수량</div>
+                                        1.8mm
+                                    </td>
+                                    <td>
+                                        <div>적설량</div>
+                                        15.3cm
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="pagination">
+                        <button class="pagination_button">
+                            <img src="./image/icon/pre.svg" alt="pre">
+                        </button>
+
+                        <div class="page_num active">1</div>
+                        <div class="page_num">2</div>
+                        <div class="page_num">3</div>
+                        <div class="page_num">4</div>
+
+                        <button class="pagination_button">
+                            <img src="./image/icon/next.svg" alt="next">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="main_content chart" style="display: none;">
+                    <!-- 희원1209 -->
+                    <div class="select">
+                        <!-- 희원 1215 클래스 밑 아이디 수정 -->
+                        <div style="position: relative;">
+                            <select name="time" id="time_chart">
+                                <option value="min">분</option>
+                                <option value="day">일</option>
+                            </select>
+
+                            <div class="date">
+                                <span>기간</span>
+                                <div class="date_input">
+                                    <div class="date_input_wrap">
+                                        <div class="input_date start_date" id="startDateField_chart">
+                                            <span>시작</span>
+                                            <span class="date_value" id="startDateDisplay_chart">2025-12-25 00:00</span>
+                                        </div>
+                                    </div>
+                                    <span>~</span>
+                                    <div class="date_input_wrap">
+                                        <div class="input_date end_date" id="endDateField_chart">
+                                            <span>종료</span>
+                                            <span class="date_value" id="endDateDisplay_chart">2025-12-25 00:00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ===== 시작 날짜 팝업 ===== -->
+                            <div class="popup_content start_cal" id="startPopup_chart">
+                                <div class="calendar">
+                                    <p>시작 날짜</p>
+                                    <div class="calendar_header">
+                                        <img src="./image/icon/left.svg" alt="left_icon" class="calendar_btn">
+                                        <span class="calendar_title" id="startMonthYear_chart">2025년 12월</span>
+                                        <img src="./image/icon/right.svg" alt="right_icon" class="calendar_btn">
+                                    </div>
+
+                                    <div class="ym_picker" id="startYmPicker_chart"></div>
+
+                                    <div class="weekdays">
+                                        <div class="weekday">일</div>
+                                        <div class="weekday">월</div>
+                                        <div class="weekday">화</div>
+                                        <div class="weekday">수</div>
+                                        <div class="weekday">목</div>
+                                        <div class="weekday">금</div>
+                                        <div class="weekday">토</div>
+                                    </div>
+                                    <div class="days" id="startDays_chart"></div>
+                                </div>
+
+                                <div class="time_picker">
+                                    <div class="time_column">
+                                        <span class="time_label">시</span>
+                                        <div class="scroll" id="startHourScroll_chart"></div>
+                                    </div>
+
+                                    <span class="time_separator">:</span>
+
+                                    <div class="time_column">
+                                        <span class="time_label">분</span>
+                                        <div class="scroll" id="startMinuteScroll_chart"></div>
+                                    </div>
+                                </div>
+
+                                <div class="popup_buttons">
+                                    <button class="btn cancle_btn">취소</button>
+                                    <button class="btn confirm_btn">확인</button>
+                                </div>
+                            </div>
+
+                            <!-- ===== 끝 날짜 팝업 ===== -->
+                            <div class="popup_content end_cal" id="endPopup_chart">
+                                <div class="calendar">
+                                    <p>종료 날짜</p>
+                                    <div class="calendar_header">
+                                        <img src="./image/icon/left.svg" alt="left_icon" class="calendar_btn">
+                                        <span class="calendar_title" id="endMonthYear_chart">2025년 12월</span>
+                                        <img src="./image/icon/right.svg" alt="right_icon" class="calendar_btn">
+                                    </div>
+
+                                    <div class="ym_picker" id="endYmPicker_chart"></div>
+
+                                    <div class="weekdays">
+                                        <div class="weekday">일</div>
+                                        <div class="weekday">월</div>
+                                        <div class="weekday">화</div>
+                                        <div class="weekday">수</div>
+                                        <div class="weekday">목</div>
+                                        <div class="weekday">금</div>
+                                        <div class="weekday">토</div>
+                                    </div>
+                                    <div class="days" id="endDays_chart"></div>
+                                </div>
+
+                                <div class="time_picker">
+                                    <div class="time_column">
+                                        <span class="time_label">시</span>
+                                        <div class="scroll" id="endHourScroll_chart"></div>
+                                    </div>
+
+                                    <span class="time_separator">:</span>
+
+                                    <div class="time_column">
+                                        <span class="time_label">분</span>
+                                        <div class="scroll" id="endMinuteScroll_chart"></div>
+                                    </div>
+                                </div>
+
+                                <div class="popup_buttons">
+                                    <button class="btn cancle_btn">취소</button>
+                                    <button class="btn confirm_btn">확인</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="button_row">
+                            <button>검색</button>
+                            <button>Export</button>
+                        </div>
+                    </div>
+
+                    <div class="content">
+                        <div class="moment">
+                            <h3 style="padding-left: 35px;">순간 일사량</h3>
+                            <canvas id="chart1"></canvas>
+                        </div>
+                        <div class="avg">
+                            <h3 style="padding-left: 35px;">누적 일사량</h3>
+                            <canvas id="chart2"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contain person_wrap" style="display: none;">
+                <div class="main_content">
+                    <div class="search">
+                        <input type="text" class="search_input" placeholder="검색어를 입력하세요" >
+                        <button>검색</button>
+                    </div>
+                    <div class="button_row">
+                        <button class="add">추가</button>
+                        <button class="del">삭제</button>
+                    </div>
+
+                    <div class="content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>이름</th>
+                                    <th>ID</th>
+                                    <th>Password</th>
+                                    <th>E-mail</th>
+                                    <th>가입날짜</th>
+                                    <th>수정</th>
+                                </tr>
+                            </thead>
+
+                            <!-- 희원 1209 -->
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                    <td>
+                                        <div>이름</div>
+                                        홍길동
+                                    </td>
+                                    <td>
+                                        <div>ID</div>
+                                        honghong88
+                                    </td>
+                                    <td>
+                                        <div>Password</div>
+                                        honghong1234
+                                    </td>
+                                    <td>
+                                        <div>E-mail</div>
+                                        hong88@naver.com
+                                    </td>
+                                    <td>
+                                        <div>가입날짜</div>
+                                        2025-12-29
+                                    </td>
+                                    <td class="edit">
+                                        <div>수정</div>
+                                        <button>수정하기</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                    <td>
+                                        <div>이름</div>
+                                        홍길동
+                                    </td>
+                                    <td>
+                                        <div>ID</div>
+                                        honghong88
+                                    </td>
+                                    <td>
+                                        <div>Password</div>
+                                        honghong1234
+                                    </td>
+                                    <td>
+                                        <div>E-mail</div>
+                                        hong88@naver.com
+                                    </td>
+                                    <td>
+                                        <div>가입날짜</div>
+                                        2025-12-29
+                                    </td>
+                                    <td class="edit">
+                                        <div>수정</div>
+                                        <button>수정하기</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                    <td>
+                                        <div>이름</div>
+                                        홍길동
+                                    </td>
+                                    <td>
+                                        <div>ID</div>
+                                        honghong88
+                                    </td>
+                                    <td>
+                                        <div>Password</div>
+                                        honghong1234
+                                    </td>
+                                    <td>
+                                        <div>E-mail</div>
+                                        hong88@naver.com
+                                    </td>
+                                    <td>
+                                        <div>가입날짜</div>
+                                        2025-12-29
+                                    </td>
+                                    <td class="edit">
+                                        <div>수정</div>
+                                        <button>수정하기</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="pagination">
+                        <button class="pagination_button">
+                            <img src="./image/icon/pre.svg" alt="pre">
+                        </button>
+
+                        <div class="page_num active">1</div>
+                        <div class="page_num">2</div>
+                        <div class="page_num">3</div>
+                        <div class="page_num">4</div>
+
+                        <button class="pagination_button">
+                            <img src="./image/icon/next.svg" alt="next">
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal_bg">
+                <div class="modal">
+                    <div class="modal_header">
+                        <h4>사용자 추가</h4>
+                        <img src="./image/icon/close.svg" alt="close" class="close">
+                    </div>
+                    <div class="add_content">
+                        <input type="text" class="add_name" placeholder="이름을 입력하세요">
+                        <div style="gap: 8px;">
+                            <input type="text" class="add_id" placeholder="아이디를 입력하세요">
+                            <!-- 희원 1230 -->
+                            <button class="disable">중복확인</button>
+                        </div>
+                        <input type="email" class="add_email" placeholder="이메일을 입력하세요">
+                        <input type="password" class="add_password" id="pw" placeholder="비밀번호를 입력하세요">
+                        <div class="pass_check">
+                            <input type="password" class="check_password" id="pwConfirm" placeholder="비밀번호를 입력하세요">
+                            <div>
+                                <span class="passwordk_pass">비밀번호가 일치합니다</span>
+                                <span class="password_wrong">비밀번호가 일치하지 않습니다</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal_button">
+                        <button class="cancle_btn">취소</button>
+                        <button class="confirm_btn">추가</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</html>

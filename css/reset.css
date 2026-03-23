@@ -1,0 +1,300 @@
+@charset "UTF-8";
+
+/* font */
+@font-face {
+    font-family: 'Pretendard';
+    src: url('../font/Pretendard-Thin.otf') format('opentype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('../font/Pretendard-ExtraLight.otf') format('opentype');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('../font/Pretendard-Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('../font/Pretendard-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('../font/Pretendard-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('../font/Pretendard-SemiBold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('../font/Pretendard-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('../font/Pretendard-ExtraBold.otf') format('opentype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('../font/Pretendard-Black.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    background: #ECECEE;
+    font-family: 'Pretendard', sans-serif;
+}
+
+/* reset */
+html,
+body,
+ul,
+li {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #222;
+
+    -webkit-text-size-adjust: none;
+}
+
+li {
+    list-style: none;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-style: normal;
+}
+
+input,
+select {
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url('../image/icon/down.svg') no-repeat right 18px center;
+    background-size: 16px 16px;
+    color: #888888;
+}
+
+select::-ms-expand {
+    display: none
+}
+
+input,
+select,
+.date_input {
+    height: 35px;
+    border-radius: 8px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #c4c4c4;
+    box-sizing: border-box;
+    color: #111;
+    /* font-size: 16px; */
+    vertical-align: middle;
+    line-height: 35px;
+    background-color: #fafafa;
+}
+
+legend {
+    font-size: 0;
+    text-indent: -100000px;
+    left: -10000px;
+    top: auto;
+    height: 0;
+    overflow: hidden;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1.3;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+div {
+    box-sizing: border-box;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+table caption {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
+
+a {
+    text-decoration: none;
+    color: #555555;
+}
+
+button,
+input[type="submit"],
+select {
+    cursor: pointer
+}
+
+button {
+    border: none;
+    padding: 0;
+    margin: 0;
+    background: none;
+}
+
+a.button {
+    cursor: pointer;
+    vertical-align: middle;
+}

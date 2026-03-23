@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="main_content table">
+        <div class="select">
+            <!-- 희원 1215 -->
+            <div style="position: relative;">
+                <select name="time" id="time">
+                    <option value="min">분</option>
+                    <option value="day">일</option>
+                </select>
+
+                <!-- 희원 1211 -->
+                <div class="date">
+                    <span>기간</span>
+                    <!-- 희원 1215 -->
+                    <div class="date_input">
+                        <div class="date_input_wrap">
+                            <div class="input_date start_date" id="startDateField">
+                                <span>시작</span>
+                                <span class="date_value" id="startDateDisplay">2025-12-25 00:00</span>
+                            </div>
+                        </div>
+                        <span>~</span>
+                        <div class="date_input_wrap">
+                            <div class="input_date end_date" id="endDateField">
+                                <span>종료</span>
+                                <span class="date_value" id="endDateDisplay">2025-12-25 00:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== 시작 날짜 팝업 ===== -->
+                <div class="popup_content start_cal" id="startPopup">
+                    <div class="calendar">
+                        <p>시작 날짜</p>
+                        <div class="calendar_header">
+                            <img src="./image/icon/left.svg" alt="left_icon" class="calendar_btn">
+                            <span class="calendar_title" id="startMonthYear">2025년 12월</span>
+                            <img src="./image/icon/right.svg" alt="right_icon" class="calendar_btn">
+                        </div>
+
+                        <!-- 연/월 선택 패널 -->
+                        <div class="ym_picker" id="startYmPicker"></div>
+
+                        <div class="weekdays">
+                            <div class="weekday">일</div>
+                            <div class="weekday">월</div>
+                            <div class="weekday">화</div>
+                            <div class="weekday">수</div>
+                            <div class="weekday">목</div>
+                            <div class="weekday">금</div>
+                            <div class="weekday">토</div>
+                        </div>
+                        <div class="days" id="startDays"></div>
+                    </div>
+
+                    <div class="time_picker">
+                        <div class="time_column">
+                            <span class="time_label">시</span>
+                            <div class="scroll" id="startHourScroll"></div>
+                        </div>
+
+                        <span class="time_separator">:</span>
+
+                        <div class="time_column">
+                            <span class="time_label">분</span>
+                            <div class="scroll" id="startMinuteScroll"></div>
+                        </div>
+                    </div>
+
+                    <div class="popup_buttons">
+                        <button class="btn  cancle_btn">취소</button>
+                        <button class="btn  confirm_btn">확인</button>
+                    </div>
+                </div>
+
+                <!-- ===== 끝 날짜 팝업 ===== -->
+                <div class="popup_content end_cal" id="endPopup">
+                    <div class="calendar">
+                        <p>종료 날짜</p>
+                        <div class="calendar_header">
+                            <img src="./image/icon/left.svg" alt="left_icon" class="calendar_btn">
+                            <span class="calendar_title" id="endMonthYear">2025년
+                                12월</span>
+                            <img src="./image/icon/right.svg" alt="right_icon" class="calendar_btn">
+                        </div>
+
+                        <!-- 연/월 선택 패널 -->
+                        <div class="ym_picker" id="endYmPicker"></div>
+
+                        <div class="weekdays">
+                            <div class="weekday">일</div>
+                            <div class="weekday">월</div>
+                            <div class="weekday">화</div>
+                            <div class="weekday">수</div>
+                            <div class="weekday">목</div>
+                            <div class="weekday">금</div>
+                            <div class="weekday">토</div>
+                        </div>
+                        <div class="days" id="endDays"></div>
+                    </div>
+
+                    <div class="time_picker">
+                        <div class="time_column">
+                            <span class="time_label">시</span>
+                            <div class="scroll" id="endHourScroll"></div>
+                        </div>
+
+                        <span class="time_separator">:</span>
+
+                        <div class="time_column">
+                            <span class="time_label">분</span>
+                            <div class="scroll" id="endMinuteScroll"></div>
+                        </div>
+                    </div>
+
+                    <div class="popup_buttons">
+                        <button class="btn  cancle_btn">취소</button>
+                        <button class="btn  confirm_btn">확인</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button_row">
+                <button>검색</button>
+                <button>Export</button>
+            </div>
+        </div>
+
+        <div class="content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>일사 (1구역)</th>
+                        <th>일사 (2구역)</th>
+                        <th>일사 (3구역)</th>
+                        <th>일사 (4구역)</th>
+                        <th>일사 (5구역)</th>
+                        <th>풍향</th>
+                        <th>풍속</th>
+                        <th>온도</th>
+                        <th>습도</th>
+                        <th>1분당 강수량</th>
+                        <th>시간당 강수량</th>
+                        <th>적설량</th>
+                    </tr>
+                </thead>
+
+                <!-- 희원 1209 -->
+                <tbody>
+                    <tr>
+                        <td>
+                            <div>Date</div>
+                            25/08/26 <span>11:00</span>
+                        </td>
+                        <td>
+                            <div>일사 (1구역)</div>
+                            819.6W/m²
+                        </td>
+                        <td>
+                            <div>일사 (2구역)</div>
+                            819.6W/m²
+                        </td>
+                        <td>
+                            <div>일사 (3구역)</div>
+                            819.6W/m²
+                        </td>
+                        <td>
+                            <div>일사 (4구역)</div>
+                            819.6W/m²
+                        </td>
+                        <td>
+                            <div>일사 (5구역)</div>
+                            819.6W/m²
+                        </td>
+                        <td>
+                            <div>풍향</div>
+                            76°
+                        </td>
+                        <td>
+                            <div>풍속</div>
+                            15.3m/s
+                        </td>
+                        <td>
+                            <div>온도</div>
+                            58.5°C
+                        </td>
+                        <td>
+                            <div>습도</div>
+                            50%
+                        </td>
+                        <td>
+                            <div>1분당 강수량</div>
+                            15.3mm
+                        </td>
+                        <td>
+                            <div>시간당 강수량</div>
+                            1.8mm
+                        </td>
+                        <td>
+                            <div>적설량</div>
+                            15.3cm
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>Date</div>
+                            25/08/26 <span>11:00</span>
+                        </td>
+                        <td>
+                            <div>일사 (1구역)</div>
+                            819.6W/m²
+                        </td>
+                        <td>
+                            <div>일사 (2구역)</div>
+                            819.6W/m²
+                        </td>
+                        <td>
+                            <div>일사 (3구역)</div>
+                            819.6W/m²
+                        </td>
+                        <td>
+                            <div>일사 (4구역)</div>
+                            819.6W/m²
+                        </td>
+                        <td>
+                            <div>일사 (5구역)</div>
+                            819.6W/m²
+                        </td>
+                        <td>
+                            <div>풍향</div>
+                            76°
+                        </td>
+                        <td>
+                            <div>풍속</div>
+                            15.3m/s
+                        </td>
+                        <td>
+                            <div>온도</div>
+                            58.5°C
+                        </td>
+                        <td>
+                            <div>습도</div>
+                            50%
+                        </td>
+                        <td>
+                            <div>1분당 강수량</div>
+                            15.3mm
+                        </td>
+                        <td>
+                            <div>시간당 강수량</div>
+                            1.8mm
+                        </td>
+                        <td>
+                            <div>적설량</div>
+                            15.3cm
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>Date</div>
+                            25/08/26 <span>11:00</span>
+                        </td>
+                        <td>
+                            <div>일사 (1구역)</div>
+                            819.6W/m²
+                        </td>
+                        <td>
+                            <div>일사 (2구역)</div>
+                            819.6W/m²
+                        </td>
+                        <td>
+                            <div>일사 (3구역)</div>
+                            819.6W/m²
+                        </td>
+                        <td>
+                            <div>일사 (4구역)</div>
+                            819.6W/m²
+                        </td>
+                        <td>
+                            <div>일사 (5구역)</div>
+                            819.6W/m²
+                        </td>
+                        <td>
+                            <div>풍향</div>
+                            76°
+                        </td>
+                        <td>
+                            <div>풍속</div>
+                            15.3m/s
+                        </td>
+                        <td>
+                            <div>온도</div>
+                            58.5°C
+                        </td>
+                        <td>
+                            <div>습도</div>
+                            50%
+                        </td>
+                        <td>
+                            <div>1분당 강수량</div>
+                            15.3mm
+                        </td>
+                        <td>
+                            <div>시간당 강수량</div>
+                            1.8mm
+                        </td>
+                        <td>
+                            <div>적설량</div>
+                            15.3cm
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination">
+            <button class="pagination_button">
+                <img src="./image/icon/pre.svg" alt="pre">
+            </button>
+
+            <div class="page_num active">1</div>
+            <div class="page_num">2</div>
+            <div class="page_num">3</div>
+            <div class="page_num">4</div>
+
+            <button class="pagination_button">
+                <img src="./image/icon/next.svg" alt="next">
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>
